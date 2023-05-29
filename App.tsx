@@ -103,16 +103,29 @@ function AuthenticatedStack() {
   // )
 }
 
+const MyTheme = {
+  dark: false,
+  colors: {
+    primary: 'rgb(255, 45, 85)',
+    background: 'rgb(255, 233, 224)',
+    card: 'rgb(255, 255, 255)',
+    text: 'rgb(28, 28, 30)',
+    border: 'rgb(199, 199, 204)',
+    notification: 'rgb(255, 69, 58)',
+  },
+};
 function Navigation() {
   const authcontext = useContext(AuthContext);
   return (
-      <NavigationContainer>
+      <NavigationContainer theme={MyTheme}>
         {authcontext.isAuthenticated && <AuthenticatedStack />}
         {!authcontext.isAuthenticated && <AuthStack />}
         
       </NavigationContainer>
   );
 }
+
+
 
 function App(): JSX.Element {
 
