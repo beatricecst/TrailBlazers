@@ -33,9 +33,12 @@ import {
 import Welcome from './src/screens/Welcome';
 import {Signup} from './src/screens/Signup';
 import Login from './src/screens/Login';
+import Profile from './src/screens/Profile';
 import AuthContextProvider, { AuthContext } from './src/store/auth-context';
 import AuthContent from './src/components/AuthContent';
 import AuthForm from './src/components/AuthForm';
+import UploadImage from './src/components/UploadImage';
+import { CreatePost } from './src/screens/CreatePost';
 //import BlueButton from './src/components/BlueButton';
 
 type SectionProps = PropsWithChildren<{
@@ -131,9 +134,7 @@ function App(): JSX.Element {
 
   return (
       <>
-      <AuthContextProvider>  
-        <Navigation />
-        </AuthContextProvider>
+        <CreatePost />
       </>
     );
 
