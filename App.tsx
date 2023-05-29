@@ -37,6 +37,7 @@ import AuthContextProvider, { AuthContext } from './src/store/auth-context';
 import AuthContent from './src/components/AuthContent';
 import AuthForm from './src/components/AuthForm';
 import Home from './src/screens/Home';
+import {NativeBaseProvider, Box} from 'native-base';
 //import BlueButton from './src/components/BlueButton';
 
 type SectionProps = PropsWithChildren<{
@@ -130,11 +131,11 @@ function Navigation() {
 function App(): JSX.Element {
 
   return (
-      <>
+      <NativeBaseProvider>
       <AuthContextProvider>  
         <Navigation />
         </AuthContextProvider>
-      </>
+    </NativeBaseProvider>
     );
 
 
