@@ -36,6 +36,7 @@ import Login from './src/screens/Login';
 import AuthContextProvider, { AuthContext } from './src/store/auth-context';
 import AuthContent from './src/components/AuthContent';
 import AuthForm from './src/components/AuthForm';
+import Home from './src/screens/Home';
 //import BlueButton from './src/components/BlueButton';
 
 type SectionProps = PropsWithChildren<{
@@ -52,6 +53,7 @@ function AuthStack() {
       <Stack.Screen name='Welcome' component={Welcome} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="Home" component={Home} />
     </Stack.Navigator>
   );
 }
@@ -60,9 +62,7 @@ function AuthStack() {
 function AuthenticatedStack() {
   //The stack of screens that will be shown once logged in
   const authcontext = useContext(AuthContext);
-  return (
-    <Text>You are successfully logged in</Text>
-  )
+  return <Home />;
   // return (
   //   <Tab.Navigator 
   //     screenOptions={({ route }) => ({
