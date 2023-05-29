@@ -17,10 +17,10 @@ export default Button;
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 6,
+    borderRadius: 25,
     paddingVertical: 6,
     paddingHorizontal: 12,
-    backgroundColor: '#16308E',
+    backgroundColor: '#7B3911',
     elevation: 2,
 
   },

@@ -45,9 +45,9 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
 
   return (
     <View style={styles.form}>
-      <View>
+      <View style={styles.inside}>
         <Input
-          label="NUS Email Address"
+          label="Email Address"
           onUpdateValue={updateInputValueHandler.bind(this, 'email')}
           value={enteredEmail}
           keyboardType="email-address"
@@ -98,6 +98,13 @@ function AuthForm({ isLogin, onSubmit, credentialsInvalid }) {
 export default AuthForm;
 
 const styles = StyleSheet.create({
+  form: {
+    backgroundColor: '#FFFFFF',
+    borderRadius:20,
+  },
+  inside: {
+    padding:16
+  },
   buttons: {
     marginTop: 12,
   },
