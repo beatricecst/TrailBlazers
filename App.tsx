@@ -5,16 +5,21 @@
  * @format
  */
 
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import type {PropsWithChildren} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
 import {
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
   Text,
   useColorScheme,
   View,
+  Image,
 } from 'react-native';
 
 import {
@@ -25,32 +30,105 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
+import Welcome from './src/screens/Welcome';
+import {Signup} from './src/screens/Signup';
+import Login from './src/screens/Login';
+import AuthContextProvider, { AuthContext } from './src/store/auth-context';
+import AuthContent from './src/components/AuthContent';
+import AuthForm from './src/components/AuthForm';
+//import BlueButton from './src/components/BlueButton';
+
+type SectionProps = PropsWithChildren<{
+  title: string;
+}>;
 
 
-function App(): JSX.Element {
-  
+const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
+
+function AuthStack() {
   return (
-    
+    <Stack.Navigator>
+      <Stack.Screen name='Welcome' component={Welcome} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
 
+function AuthenticatedStack() {
+  //The stack of screens that will be shown once logged in
+  const authcontext = useContext(AuthContext);
+  return (
+    <Text>You are successfully logged in</Text>
+  )
+  // return (
+  //   <Tab.Navigator 
+  //     screenOptions={({ route }) => ({
+  //       tabBarIcon: ({ focused, color, size }) => {
+  //         let icon;
+
+  //         if (route.name === 'Home') {
+  //           icon = focused
+  //             ? require('./src/assets/home.png')
+  //             : require('./src/assets/home.png');
+  //         } else if (route.name === 'Profile') {
+  //           icon = focused
+  //             ? require('./src/assets/frog.png')
+  //             : require('./src/assets/frog.png');
+  //         } else if (route.name === 'Explore') {
+  //           icon = focused
+  //             ? require('./src/assets/chats.png')
+  //             : require('./src/assets/chats.png');
+  //         } else if (route.name === 'AddPost') {
+  //           icon = focused
+  //             ? require('./src/assets/chats.png')
+  //             : require('./src/assets/chats.png');
+  //         }
+
+  //         // You can return any component that you like here!
+  //         return <Image style={{ width: 24, height: 24 }} source={icon} />
+  //       },
+  //       headerShown: true,
+  //       tabBarShowLabel: true,
+  //       headerRight: () => <BlueButton title='Log out' onPress={authcontext.logout} />
+  //     })} 
+      
+  //   >
+  //     <Tab.Screen name="Home" component={Home} />
+  //     <Tab.Screen name="Profile" component={Profile} />
+  //     <Tab.Screen name="Chats" component={Chats} />
+  //   </Tab.Navigator>
+  // )
+}
+
+function Navigation() {
+  const authcontext = useContext(AuthContext);
+  return (
+      <NavigationContainer>
+        {authcontext.isAuthenticated && <AuthenticatedStack />}
+        {!authcontext.isAuthenticated && <AuthStack />}
+        
+      </NavigationContainer>
+  );
+}
+
+function App(): JSX.Element {
+
+  return (
+      <>
+      <AuthContextProvider>  
+        <Navigation />
+        </AuthContextProvider>
+      </>
+    );
+
+
+
+  
+}
 export default App;
+
+
+
